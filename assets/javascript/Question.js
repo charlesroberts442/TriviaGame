@@ -1,0 +1,298 @@
+/***********************************************************************
+ * Copyright (c) 2017 Charles W. Roberts
+ * All Rights Reserved
+ *
+ * No portion of this code may be copied or modified without the
+ * prior written permission of Charles Roberts.
+ *
+ ***********************************************************************/
+
+/**
+ * @file Contains the class definition of the Question class.
+ * @author Charles Roberts
+ * @copyright Charles Roberts 2017
+ */
+
+/**
+ * @classdesc Question objects represent one question in the trivia
+ * game.
+ */
+class Question
+{
+    constructor(displayDiv)
+    {
+        /**
+         * clickHandler is a "big arrow" method that is the callback
+         * for radio button click events
+         * @param  {object} event The click event
+         */
+        let clickHandler = (event) =>
+        {
+            let btnNumber = event.target.getAttribute('data-number');
+            
+            switch (btnNumber)
+            {
+                case "1":
+                    this.setCurrentChoice(Number(0));
+                    radioTwoButton.checked = false;
+                    radioThreeButton.checked = false;
+                    radioFourButton.checked = false;
+                    break;
+
+                case "2":
+                    this.setCurrentChoice(Number(1));
+                    radioOneButton.checked = false;
+                    radioThreeButton.checked = false;
+                    radioFourButton.checked = false;
+                    break;
+
+                case "3":
+                    this.setCurrentChoice(Number(2));
+                    radioOneButton.checked = false;
+                    radioTwoButton.checked = false;
+                    radioFourButton.checked = false;
+                    break;
+
+                case "4":
+                    this.setCurrentChoice(Number(3));
+                    radioOneButton.checked = false;
+                    radioTwoButton.checked = false;
+                    radioThreeButton.checked = false;
+                    break;
+
+            } // End of  switch (btnNumber)
+
+        }; // End of let clickHandler = (event) => {...}
+
+        /**
+         * ButtonClickHandler is a "big arrow" method that is the 
+         * callback for the continue button click event.
+         * @param  {Object} event [description]
+         */
+        let ButtonClickHandler = (event) =>
+        {
+        	QC.stopCounter();
+        }; // End of ButtonClickHandler = (event) =>
+
+
+        let _question_text = "";
+        let _answers = ["", "", "", ""];
+        let _correctAnswer = 1;
+        let _isVisible = false;
+        let _displayDiv = document.getElementById(displayDiv);
+        let _myDiv = document.createElement("div");
+        let _currentChoice = -1;
+
+
+        // Create the elements for showing the question
+        let questionDiv = document.createElement("div");
+        let questionP = document.createElement("p");
+        questionP.innerHTML = _question_text;
+        questionDiv.appendChild(questionP);
+        _myDiv.appendChild(questionDiv);
+
+        // Elements for radio button number one
+        let radioDiv = document.createElement("div");
+        let radioOneDiv = document.createElement("div");
+        let radioOneButton = document.createElement("INPUT");
+        radioOneButton.checked = false;
+        let radioOneP = document.createElement("span");
+        radioOneP.innerHTML = _answers[0];
+        radioOneButton.setAttribute("type", "radio");
+        radioOneButton.addEventListener('click', clickHandler);
+        radioOneButton.setAttribute('data-number', 1);
+        radioOneDiv.appendChild(radioOneButton);
+        radioOneDiv.appendChild(radioOneP);
+        _myDiv.appendChild(radioOneDiv);
+
+        // Elements for radio button number two
+        let radioTwoDiv = document.createElement("div");
+        let radioTwoButton = document.createElement("INPUT");
+        radioTwoButton.checked = false;
+        let radioTwoP = document.createElement("span");
+        radioTwoP.innerHTML = _answers[1];
+        radioTwoButton.setAttribute("type", "radio");
+        radioTwoButton.addEventListener('click', clickHandler);
+        radioTwoButton.setAttribute('data-number', 2);
+        radioTwoDiv.appendChild(radioTwoButton);
+        radioTwoDiv.appendChild(radioTwoP);
+        _myDiv.appendChild(radioTwoDiv);
+
+        // Elements for radio button number three
+        let radioThreeDiv = document.createElement("div");
+        let radioThreeButton = document.createElement("INPUT");
+        radioThreeButton.checked = false;
+        let radioThreeP = document.createElement("span");
+        radioThreeP.innerHTML = " " + _answers[2];
+        radioThreeButton.setAttribute("type", "radio");
+        radioThreeButton.addEventListener('click', clickHandler);
+        radioThreeButton.setAttribute('data-number', 3);
+        radioThreeDiv.appendChild(radioThreeButton);
+        radioThreeDiv.appendChild(radioThreeP);
+        _myDiv.appendChild(radioThreeDiv);
+
+        // Elements for radio button number four
+        let radioFourDiv = document.createElement("div");
+        let radioFourButton = document.createElement("INPUT");
+        radioFourButton.checked = false;
+        let radioFourP = document.createElement("span");
+        radioFourP.innerHTML = " " + _answers[3];
+        radioFourButton.setAttribute("type", "radio");
+        radioFourButton.addEventListener('click', clickHandler);
+        radioFourButton.setAttribute('data-number', 4);
+        radioFourDiv.appendChild(radioFourButton);
+        radioFourDiv.appendChild(radioFourP);
+        _myDiv.appendChild(radioFourDiv);
+        _displayDiv.appendChild(_myDiv);
+        _myDiv.setAttribute("style", "display:block;");
+
+        // A button to stop the timer
+        let buttonOneDiv = document.createElement("div");
+        let buttonOne = document.createElement("BUTTON");
+        let buttonP = document.createElement("p");
+        let timerDiv = document.createElement("div");
+        timerDiv.setAttribute("id", "clock");
+        buttonOne.addEventListener('click', ButtonClickHandler);
+        buttonOne.innerHTML = "Continue";
+        buttonP.appendChild(buttonOne);
+        buttonOneDiv.appendChild(timerDiv);
+        buttonOneDiv.appendChild(buttonP);
+        _myDiv.appendChild(buttonOneDiv);
+
+        /**
+         * setQuestion sets the text of the question
+         */
+        this.setQuestion = function(question)
+        {
+            _question_text = question;
+            questionP.innerHTML = _question_text;
+
+        }; // End of this.setQuestion = function(question)
+
+        /**
+         * getQuestion gets the text of a Question object
+         */
+        this.getQuestion = function()
+        {
+            return _question_text;
+
+        }; // End of this.getQuestion = function()
+
+        /**
+         * setAnswers sets the array of strings that are the
+         * candidate answers for a question object
+         */
+        this.setAnswers = function(answers)
+        {
+            _answers = answers;
+            radioOneP.innerHTML = " " + _answers[0];
+            radioTwoP.innerHTML = " " + _answers[1];
+            radioThreeP.innerHTML = " " + _answers[2];
+            radioFourP.innerHTML = " " + _answers[3];
+
+        }; // End of this.setAnswers = function(answers)
+
+        /**
+         * setCorrectAnswer sets the index of the correct answer
+         * for a question object
+         */
+        this.setCorrectAnswer = function(Answer)
+        {
+            _correctAnswer = Answer;
+
+        }; // End of this.setCorrectAnswer = function(_correctAnswer)
+
+        /**
+         * setVisible controls whether or not a question object is visible
+
+         */
+        this.setVisible = function(isVisible)
+        {
+            _isVisible = isVisible;
+            if (_isVisible)
+            {
+                _myDiv.style.display = "block";
+
+            }
+            else
+            {
+                _myDiv.style.display = "none";
+
+            }
+
+            return  _myDiv.style.display;
+
+        }; // End of this.setVisible = function(isVisible)
+
+        /**
+         * getCorrectAnswer returns the text of a question's correct answer
+         */
+        this.getCorrectAnswer = function()
+        {
+        	return _answers[_correctAnswer];
+        };
+
+        /**
+         * clearRadioButtons sets the state of all of the question to unchecked
+         */
+        this.clearRadioButtons = function()
+        {
+        	radioOneButton.checked = false;
+            radioTwoButton.checked = false;
+            radioThreeButton.checked = false;
+            radioFourButton.checked = false;
+
+        }; // End of this.clearRadioButtons = function()
+
+        /**
+         * setCurrentChoice sets the current choice of answer for
+         * a question
+         * @param {Number} choice the user's choice
+         */
+        this.setCurrentChoice = function(choice)
+        {
+            _currentChoice = Number(choice);
+            
+        }; // End of this.setCurrentChoice = function(choice)
+
+        /**
+         * getCurrentChoice gets the current choice that has been made by a user.
+         * If no choice has been made the this method returns =1
+         * @return {Number} The current choice that has been made by a user.
+         * If no choice has been made the this method returns =1
+         */
+        this.getCurrentChoice = function()
+        {
+            return _currentChoice;
+
+        }; // End of this.getCurrentChoice = function()
+
+        /**
+         * hasCorrectAnswer shows whether or not the current answer is the 
+         * correct one.
+         * @return {Boolean} true if the current answer is correct; false 
+         * otherwise.
+         */
+        this.hasCorrectAnswer = function()
+        {
+        	let returnValue = false;
+        	console.log(_question_text);
+        	console.log("current choice is " +_answers[_currentChoice]);
+        	console.log("correctAnswer is " + _answers[_correctAnswer]);
+            if (_currentChoice === _correctAnswer)
+            {
+                returnValue = true;
+            }
+            else
+            {
+                returnValue = false;
+            }
+           
+           console.log("has Correct Answer is returning " + returnValue);
+
+           return returnValue;
+        }; // End of this.hasCorrectAnswer = function()
+
+    } // End of constructor(displayDiv)
+
+} // End of class Question
