@@ -8,7 +8,8 @@
  * prior written permission of Charles Roberts.
  *
  -->
-<html>
+
+
 
 <head>
     <meta charset="UTF-8">
@@ -30,19 +31,23 @@
 <body>
     <div class="jumbotron jumbotron-fluid blue_box">
         <div class="container blue_box">
-            <h1 class="text-center">Charles' Trivia Game</h1>
-            <p>Each question will be displayed for at least 30 seconds. After you have made your choice, pressing the continue button will move to the next question. </p>
+            <h1 class="text-center">Charles' Trivia</h1>
+            <p id="instructions" >There are 23 trivia questions that will be displayed.  Each question will have four possible answers.  You will have thirty seconds to answer each question.  After thirty seconds expire the page will move on to the next question.  After the last question has been displayed, the number of correct answers will be displayed and you will have a chance to play again. </p>
+             <button id="startButton" onclick="startGame()">Start</button> 
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
         </div>
         <div id="QuestionDisplay"></div>
+
         <div id="CounterDownerDisplay">
         </div>
         <div>
         </div>
     </div>
+    <div class="footer">
+        <p><i> &copy 2017 Charles.Roberts@gatech.edu</i> </p>
     </div>
     <!-- Linking Javascript -->
     <script type="text/javascript" src="assets/javascript/jquery-3.2.1.min.js">

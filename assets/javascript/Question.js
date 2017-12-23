@@ -146,6 +146,11 @@ class Question
         _displayDiv.appendChild(_myDiv);
         _myDiv.setAttribute("style", "display:block;");
 
+
+        let newLine = document.createElement("br");
+        _myDiv.appendChild(newLine);
+
+
         // A button to stop the timer
         let buttonOneDiv = document.createElement("div");
         let buttonOne = document.createElement("BUTTON");
@@ -276,10 +281,7 @@ class Question
         this.hasCorrectAnswer = function()
         {
         	let returnValue = false;
-        	console.log(_question_text);
-        	console.log("current choice is " +_answers[_currentChoice]);
-        	console.log("correctAnswer is " + _answers[_correctAnswer]);
-            if (_currentChoice === _correctAnswer)
+        	if (_currentChoice === _correctAnswer)
             {
                 returnValue = true;
             }
@@ -288,8 +290,6 @@ class Question
                 returnValue = false;
             }
            
-           console.log("has Correct Answer is returning " + returnValue);
-
            return returnValue;
         }; // End of this.hasCorrectAnswer = function()
 

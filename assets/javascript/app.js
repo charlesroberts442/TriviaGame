@@ -7,11 +7,26 @@
  *
  ***********************************************************************/
 
+QC = new QuestionCollection();
+
+startGame = function()
+{
+	let _instructionDiv = document.getElementById("instructions");
+	let _questionDiv = document.getElementById("QuestionDisplay");
+	let _counterDiv = document.getElementById("CounterDownerDisplay");
+	let _startDiv = document.getElementById("startButton");
+
+	_startDiv.style.display = "none";
+	_instructionDiv.style.display = "none";
+	_questionDiv.style.display = "block";
+	_counterDiv.style.display = "block";
+	
+
+QC.showQuestions();
+   
+};
+
 /**
  * the QC is a collection of question for the trivia game. 
  * @type {QuestionCollection}
  */
-QC = new QuestionCollection();
-
-QC.showQuestions();
-   

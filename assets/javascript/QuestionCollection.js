@@ -459,12 +459,17 @@ class QuestionCollection
          */
         let showScore = function()
         {
-            let rightAnswers = getScore();
 
-            console.log("There were " + rightAnswers + " right answers.");
+
+            let _counterDiv = document.getElementById("CounterDownerDisplay");
+            _counterDiv.style.display = "none";
+
+
+            let rightAnswers = getScore();
 
             if (confirm("There were " + rightAnswers + " right answers.\nDo you want to play again?"))
             {
+                _counterDiv.style.display = "block";
                 let j = 0;
                 for (j = 0; j < _collection.length; ++j)
                 {
@@ -479,9 +484,8 @@ class QuestionCollection
             }
             else
             {
-            	CounterDownerDisplay.style.display = "none";
-            	QuestionDisplay.style.display = "none";
-            	_myDiv.style.display = "none";
+                CounterDownerDisplay.style.display = "none";
+                QuestionDisplay.style.display = "none";
                 keepGoing = false;
             }
         };
